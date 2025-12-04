@@ -1,0 +1,4 @@
+churn_segment,customers,churn_rate
+"High Risk",1869,100.00
+"Low Risk",4906,0.00
+"Medium Risk",257,0.00
