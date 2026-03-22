@@ -1,149 +1,105 @@
-# SQL Customer Segmentation Project (Telco Telecom Dataset)
-
-## Overview
-This project delivers a complete **SQL-only customer segmentation workflow** using the IBM Telco Customer Churn dataset.  
-No Python, no Power BI — the entire analysis is performed using SQL: schema creation, data cleaning, feature engineering, segmentation logic, and churn insights.
-
-The goal is to segment telecom customers into meaningful groups such as:
-- High/medium/low revenue customers  
-- New/established/loyal customers  
-- High-, medium-, and low-churn-risk segments  
-- Service usage clusters  
-- Combined multi-factor segments  
-
-These segments help telecom companies understand customer behavior, improve retention, and build targeted strategies.
+# 📊 Telecom Customer Segmentation: Identifying High-Value & At-Risk Customers
 
 ---
 
-## Dataset
-**Source:** IBM Sample Data – Telco Customer Churn  
-**Rows:** ~7,043 customers  
-**Features:**  
-- Demographics (senior citizen, gender, dependents)  
-- Account & tenure  
-- Services (internet, TV, phone, security, support)  
-- Billing (monthly/total charges, contract, payment method)  
-- Churn flag  
-
-Dataset included in `/data` folder:
-
-WA_Fn-UseC_-Telco-Customer-Churn.csv
+## 📌 Overview
+This project focuses on segmenting telecom customers to understand differences in revenue contribution, tenure, and churn risk.  
+The goal is to identify high-value customers, detect at-risk segments, and support better retention and revenue strategies by turning raw data into actionable insights.
 
 ---
 
-## SQL Skills Demonstrated
-- SQL schema design  
-- Data cleaning & type correction  
-- Feature engineering in SQL  
-- CASE-based segmentation  
-- Window functions (NTILE, OVER)  
-- Aggregations & grouping  
-- Derived segmentation tables  
-- Churn insights  
-- RFM-style logic in SQL  
-- Exporting and documenting results  
+## 🎯 Business Problem
+Telecom companies often struggle with customer churn and uneven revenue distribution.  
+Without proper segmentation, it becomes difficult to identify which customers to retain, prioritize, or target.
+
+This project addresses:
+- Identifying high-value customers contributing the most revenue  
+- Detecting customers at risk of churn  
+- Understanding behavioral differences across segments  
+- Supporting retention and targeting strategies  
 
 ---
 
-## Project Structure
-sql-customer-segmentation-telco
-├── data
-│ └── WA_Fn-UseC_-Telco-Customer-Churn.csv
-├── sql
-│ ├── schema.sql
-│ ├── cleaning.sql
-│ ├── segmentation_queries.sql
-│ ├── insights_queries.sql
-│ └── final_segments.sql
-├── outputs
-│ ├── final_segments.csv
-│ └── churn_insights.csv
-├── README.md
-└── ERD.txt
+## ❓ Key Business Questions
+- Which customers contribute the most to revenue?  
+- Which customers are at high risk of churn?  
+- How does tenure impact customer value?  
+- Which segments should be prioritized for retention?  
 
 ---
 
-## Key Segmentation Logic
-
-### **1. Revenue Segmentation**
-High-, mid-, and low-spending customers using NTILE:
-NTILE(3) OVER (ORDER BY MonthlyCharges DESC)
-
-
-### **2. Tenure Segmentation**
-- New: <12 months  
-- Established: 12–36 months  
-- Loyal: >36 months  
-
-### **3. Churn Risk Segmentation**
-- High Risk: churned  
-- Medium Risk: new & high spend  
-- Low Risk: others  
-
-### **4. Service Usage Score**
-Count of subscribed services (phone, internet, TV, streaming, security, support).
-
-### **5. Combined Segments**
-Examples:
-- Premium Loyal  
-- Premium New  
-- Low-Spend Loyal  
-- Volatile New Customers  
+## 📂 Dataset Description
+The dataset includes telecom customer records with:
+- Customer demographics  
+- Revenue and billing details  
+- Tenure information  
+- Churn indicators  
 
 ---
 
-## Outputs
-Located in `/outputs`:
-- `final_segments.csv` – complete segmentation output  
-- `churn_insights.csv` – churn-related insights  
+## ⚙️ Analysis Approach
+- Segmented customers using SQL based on revenue, tenure, and churn indicators  
+- Applied window functions and NTILE to create meaningful customer groups  
+- Compared segments across key metrics such as revenue contribution and churn risk  
+- Evaluated behavioral differences between high-value and at-risk customers  
 
 ---
 
-## Sample Business Insights
-- **Month-to-month contract customers churn the most**, followed by one-year contracts.  
-- **Fiber optic users show higher churn** because of higher MonthlyCharges and lower support satisfaction.  
-- **New customers with high MonthlyCharges** are the highest-risk churn group.  
-- **Loyal customers (>3 years)** have the lowest churn rates and highest product adoption.  
+## 📊 Segmentation Logic
+Customers were grouped into segments based on:
+- Revenue contribution (high, medium, low)  
+- Tenure (new vs long-term customers)  
+- Churn risk indicators  
+
+This allowed identification of:
+- High-value customers  
+- At-risk customers  
+- Stable but low-growth customers  
 
 ---
 
-## How to Run
-
-1. **Import dataset** into MySQL Workbench  
-2. Run `schema.sql` to create the table  
-3. Run `cleaning.sql` to fix data types and clean inconsistencies  
-4. Run `segmentation_queries.sql` to build segments  
-5. Run `final_segments.sql` to generate the master segmentation table  
-6. Export results from MySQL into `/outputs`  
+## 🔍 Key Insights
+- A small group of customers contributes a large share of total revenue, indicating dependency on high-value users  
+- Customers with lower tenure show a higher likelihood of churn, suggesting early-stage drop-off  
+- High-value customers with churn risk represent the most critical segment for retention efforts  
+- Long-tenure customers tend to be more stable but contribute less incremental revenue growth  
 
 ---
 
-## ER Diagram (Simplified)
-+-------------------+
-| telco_churn |
-+-------------------+
-| customerID (PK) |
-| gender |
-| SeniorCitizen |
-| Partner |
-| Dependents |
-| tenure |
-| PhoneService |
-| MultipleLines |
-| InternetService |
-| OnlineSecurity |
-| OnlineBackup |
-| DeviceProtection |
-| TechSupport |
-| StreamingTV |
-| StreamingMovies |
-| Contract |
-| PaperlessBilling |
-| PaymentMethod |
-| MonthlyCharges |
-| TotalCharges |
-| Churn |
-+-------------------+
+## 💡 Recommendations
+- Prioritize retention strategies for high-value customers at risk of churn to protect revenue  
+- Improve onboarding and engagement for new customers to reduce early churn  
+- Design targeted offers or loyalty programs for high-value segments  
+- Optimize marketing spend by focusing less on low-value, high-risk customers  
 
-## 
-Created as a SQL-focused customer segmentation project demonstrating SQL analytics, segmentation logic, and business insights entirely through SQL scripts.
+---
+
+## 📊 Business Impact
+- Enables targeted retention strategies  
+- Helps reduce customer churn  
+- Improves revenue stability  
+- Supports data-driven customer management decisions  
+
+---
+
+## 🛠 Tools Used
+- SQL (Joins, CTEs, Window Functions, NTILE)  
+- MySQL  
+
+---
+
+## 🚀 Key Takeaway
+This analysis highlights that not all customers contribute equally to business value.  
+Focusing on high-value and high-risk segments allows businesses to protect revenue, reduce churn, and allocate resources more effectively.
+
+---
+
+## 🧠 What This Project Demonstrates
+- Ability to translate business problems into structured data analysis  
+- Strong understanding of customer segmentation and revenue dynamics  
+- Capability to identify high-impact segments and risks  
+- Focus on actionable, business-oriented recommendations
+
+
+
+
